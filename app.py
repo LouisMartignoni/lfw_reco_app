@@ -26,7 +26,7 @@ def main():
 
 
     encoder_filename = r'C:\Users\vczl048\keras_facenet\lfw\lfw-deepfunneled\encoder.sav'
-    out_encoder = pickle.load(open(encoder_filename, 'rb'))
+    #out_encoder = pickle.load(open(encoder_filename, 'rb'))
 
     #filename = file_selector(r'C:\Users\vczl048\Desktop\images_facenet_test')
     #option = st.sidebar.selectbox('What classification method do you want to use?',
