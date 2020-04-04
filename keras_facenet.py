@@ -6,8 +6,8 @@ Created on Sun Feb 23 14:23:29 2020
 """
 
 # example of loading the keras facenet model
-from keras.models import load_model
-from mtcnn.mtcnn import MTCNN
+#from keras.models import load_model
+#from mtcnn.mtcnn import MTCNN
 import numpy as np
 import pandas as pd
 from PIL import *
