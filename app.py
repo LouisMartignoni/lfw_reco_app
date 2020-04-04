@@ -42,7 +42,10 @@ def main():
             t.append( '%s (%.3f)' % (predict_name[i], dist[i]))
         st.image(im[1:], caption=t, width=160)
         if save:
-            saveImage(c2, new_emb, file_jpeg, emb, all_paths, y)
+            if c2 == "":
+                st.write("Veuillez renseigner le nom de la personne")
+            else:
+                saveImage(c2, new_emb, file_jpeg, emb, all_paths, y)
 
 if __name__ == '__main__':
     main()
