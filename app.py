@@ -22,10 +22,9 @@ def main():
     all_paths = []
 
     st.title('Face ID')
-    path_facenet = r'C:\Users\vczl048\keras_facenet\facenet_keras.h5'
 
 
-    encoder_filename = r'C:\Users\vczl048\keras_facenet\lfw\lfw-deepfunneled\encoder.sav'
+    #encoder_filename = r'C:\Users\vczl048\keras_facenet\lfw\lfw-deepfunneled\encoder.sav'
     #out_encoder = pickle.load(open(encoder_filename, 'rb'))
 
     #filename = file_selector(r'C:\Users\vczl048\Desktop\images_facenet_test')
@@ -42,10 +41,11 @@ def main():
     up = st.sidebar.button('Confirmer', key='dragndrop')
 
     if up:
-        #data = np.load(r'C:\Users\vczl048\keras_facenet\lfw\lfw-deepfunneled\embeddings.npz')
-        data = np.load(r'C:\Users\vczl048\keras_facenet\lfw\lfw-deepfunneled\embs.npz')
+        #data = np.load(r'lfw\lfw-deepfunneled\embeddings.npz')
+        data = np.load(r'lfw\lfw-deepfunneled\embs.npz')
         emb, y, all_paths = data['arr_0'], data['arr_1'], data['arr_2']
-        im, dist, predict_name, new_emb = euclidean_class(file_jpeg, resnet, out_encoder, emb, y, all_paths)
+
+        im, dist, predict_name, new_emb = euclidean_class(file_jpeg, resnet, emb, y, all_paths)
         print('new emb done', new_emb)
         title = 'Image testée'
         st.image(im[0], caption=title, width=300)

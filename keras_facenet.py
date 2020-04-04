@@ -10,7 +10,7 @@ Created on Sun Feb 23 14:23:29 2020
 #from mtcnn.mtcnn import MTCNN
 import numpy as np
 import pandas as pd
-from PIL import *
+from PIL import Image
 #from matplotlib import pyplot
 from os import listdir, scandir
 from os.path import isdir
@@ -285,11 +285,9 @@ def cosine_class(path, model_facenet, out_encoder, emb, y, name='unknown'):
 
 
 
-def euclidean_class(path, model_facenet, out_encoder, emb, y, all_paths, name='unknown'):
+def euclidean_class(path, model_facenet, emb, y, all_paths, name='unknown'):
     image_dataframe = pd.DataFrame([[name, path]], columns = ['name', 'image_path'])
-    #print(image_dataframe)
     imageX, imageY = load_faces2(image_dataframe)
-    print('image', imageX)
     newImageX = get_embeddings(model_facenet, imageX)
     
     # normalize input vectors
@@ -329,25 +327,23 @@ def euclidean_class(path, model_facenet, out_encoder, emb, y, all_paths, name='u
         j = j+1
         latest_iteration.text(f'{j/len(emb)*100}%')
         bar.progress(j/len(emb))
-    print('nb iterations:',j)
-    print('min:', min(dist2))
     faces.append(Image.open(path))
-    os.chdir(r'C:/Users/vczl048/keras_facenet/lfw/lfw-deepfunneled')
+    os.chdir(r'lfw/lfw-deepfunneled')
     for k in [i1, i2, i3]:
-        #predict_names.append(out_encoder.inverse_transform([y[k]]))
         predict_names.append([y[k]])
         faces.append(Image.open(all_paths[k]))
     dists.extend([d1, d2, d3])
+    os.chdir('../../')
     
     return faces, dists, predict_names, newImageX
 
 
 def saveImage(new_name, new_emb, file_jpg, all_emb, all_path, all_y):
     new_im = Image.open(file_jpg)
-    if not os.path.exists(r"C:\Users\vczl048\keras_facenet\lfw\lfw-deepfunneled\\" + new_name):
-        os.makedirs(r"C:\Users\vczl048\keras_facenet\lfw\lfw-deepfunneled\\" + new_name)
-    n = len([name for name in os.listdir(r"C:\Users\vczl048\keras_facenet\lfw\lfw-deepfunneled\\" + new_name)])
-    new_path = r'C:\Users\vczl048\keras_facenet\lfw\lfw-deepfunneled\\' + new_name + '\\' + new_name +'_' + str(n+1) + '.jpg'
+    if not os.path.exists(r"lfw\lfw-deepfunneled\\" + new_name):
+        os.makedirs(r"lfw\lfw-deepfunneled\\" + new_name)
+    n = len([name for name in os.listdir(r"lfw\lfw-deepfunneled\\" + new_name)])
+    new_path = r'lfw\lfw-deepfunneled\\' + new_name + '\\' + new_name +'_' + str(n+1) + '.jpg'
     print('all path type', type(all_path))
     all_emb = np.concatenate((all_emb, new_emb), axis=0)
     all_path = all_path.tolist()
@@ -359,7 +355,7 @@ def saveImage(new_name, new_emb, file_jpg, all_emb, all_path, all_y):
     print('len y2', len(all_y))
     print('nb emb:', len(all_emb))
     print('new emb:', new_emb)
-    np.savez_compressed(r'C:\Users\vczl048\keras_facenet\lfw\lfw-deepfunneled\embs.npz', all_emb, all_y, all_path)
+    np.savez_compressed(r'lfw\lfw-deepfunneled\embs.npz', all_emb, all_y, all_path)
     new_im.save(new_path)
     st.write('Image sauvegardée!')
     return
