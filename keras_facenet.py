@@ -340,23 +340,17 @@ def euclidean_class(path, model_facenet, emb, y, all_paths, name='unknown'):
 
 def saveImage(new_name, new_emb, file_jpg, all_emb, all_path, all_y):
     new_im = Image.open(file_jpg)
-    if not os.path.exists(r"lfw\lfw-deepfunneled\\" + new_name):
-        os.makedirs(r"lfw\lfw-deepfunneled\\" + new_name)
-    n = len([name for name in os.listdir(r"lfw\lfw-deepfunneled\\" + new_name)])
-    new_path = r'lfw\lfw-deepfunneled\\' + new_name + '\\' + new_name +'_' + str(n+1) + '.jpg'
-    print('all path type', type(all_path))
+    if not os.path.exists(r"lfw/lfw-deepfunneled/" + new_name):
+        os.makedirs(r"lfw/lfw-deepfunneled/" + new_name)
+    n = len([name for name in os.listdir(r"lfw/lfw-deepfunneled/" + new_name)])
+    new_path = new_name + '/' + new_name +'_' + str(n+1) + '.jpg'
     all_emb = np.concatenate((all_emb, new_emb), axis=0)
     all_path = all_path.tolist()
     all_path.append(new_path)
-    print('new name', new_name)
-    print('len y', len(all_y.tolist()))
     all_y = all_y.tolist()
     all_y.append(new_name)
-    print('len y2', len(all_y))
-    print('nb emb:', len(all_emb))
-    print('new emb:', new_emb)
-    np.savez_compressed(r'lfw\lfw-deepfunneled\embs.npz', all_emb, all_y, all_path)
-    new_im.save(new_path)
+    np.savez_compressed(r'lfw/lfw-deepfunneled/embs.npz', all_emb, all_y, all_path)
+    new_im.save(r'lfw/lfw-deepfunneled/' + new_path)
     st.write('Image sauvegardée!')
     return
 
