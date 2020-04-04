@@ -8,7 +8,7 @@ Created on Fri Mar  6 15:09:49 2020
 import streamlit as st
 from keras_facenet import *
 #import pickle
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 def main():
     def file_selector(folder_path='.'):

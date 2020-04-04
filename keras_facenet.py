@@ -11,7 +11,7 @@ Created on Sun Feb 23 14:23:29 2020
 import numpy as np
 import pandas as pd
 from PIL import *
-from matplotlib import pyplot
+#from matplotlib import pyplot
 from os import listdir, scandir
 from os.path import isdir
 from sklearn.preprocessing import Normalizer, LabelEncoder
